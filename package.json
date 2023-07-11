@@ -6,8 +6,13 @@
   "scripts": {
     "start": "node index.js"
   },
+  "bin": {
+    "register": "./index.js"
+  },
   "dependencies": {
-    "discord.js": "^14.11.0"
+    "discord.js": "^14.11.0",
+    "dotenv": "^16.3.1",
+    "yargs": "^17.7.2"
   },
   "repository": {
     "type": "git",
@@ -19,6 +24,6 @@
     "slash",
     "commands"
   ],
-  "author": "jaykchen, gpt",
+  "author": "jaykchen@gmail.com, gpt",
   "license": "MIT"
 }
