@@ -1,3 +1,4 @@
+const { GatewayIntentBits, Client } = require('discord.js');
 const fs = require('fs');
 const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v9');
@@ -30,7 +31,7 @@ function loadCommandsFromDirectory(directory) {
 
 loadCommandsFromDirectory('commands');
 
-const rest = new REST({ version: '9' }).setToken(token);
+const rest = new REST().setToken(token);
 
 (async () => {
     try {
@@ -50,50 +51,25 @@ const rest = new REST({ version: '9' }).setToken(token);
 
 
 
-// // Start the scan from the current directory
-// scanDirectory(process.cwd()).then((commands) => {
-//     console.log(`Loaded ${commands.length} commands.`);
-// });
 
-// const client = new Client({
-//     intents: [GatewayIntentBits.Guilds]
-// });
+const client = new Client({
+    intents: [GatewayIntentBits.Guilds]
+});
 
-// client.once('ready', async () => {
-//     let commands;
-//     if (guildId) {
-//         commands = await client.guilds.cache.get(guildId)?.commands.fetch();
-//     } else {
-//         commands = await client.application?.commands.fetch();
-//     }
+client.once('ready', async () => {
+    let commands;
+    if (guildId) {
+        commands = await client.guilds.cache.get(guildId)?.commands.fetch();
+    } else {
+        commands = await client.application?.commands.fetch();
+    }
 
-//     console.log('Commands:');
-//     commands.forEach((command) => {
-//         console.log(`Name: ${command.name}\nDescription: ${command.description}`);
-//     });
-// });
+    console.log('Commands:');
+    commands.forEach((command) => {
+        console.log(`Name: ${command.name}\nDescription: ${command.description}`);
+    });
+});
 
-// client.login(token);  // Enter your bot token here
+client.login(token);  // Enter your bot token here
 
 
-// // Construct and prepare an instance of the REST module
-// const rest = new REST().setToken(token);
-
-// // and deploy your commands!
-// (async () => {
-//     try {
-//         console.log(`Started refreshing ${commands.length} application (/) commands.`);
-
-//         console.log(commands);
-//         // The put method is used to fully refresh all commands in the guild with the current set
-//         const data = await rest.put(
-//             Routes.applicationGuildCommands(clientId, guildId),
-//             { body: commands },
-//         );
-
-//         console.log(`Successfully reloaded ${data.length} application (/) commands.`);
-//     } catch (error) {
-//         // And of course, make sure you catch and log any errors!
-//         console.error(error);
-//     }
-// })();
