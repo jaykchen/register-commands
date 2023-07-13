@@ -1,0 +1,4 @@
+/new - Start a new conversation
+/random - Ask a random question
+/gpt4 - Switch to GPT4
+/gpt35 - Switch to GPT3.5
